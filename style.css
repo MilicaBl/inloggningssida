@@ -1,0 +1,14 @@
+.mainImg{
+    background-image: url("images/blommor7.jpg");
+    background-size: cover;
+    width: 500px;
+    height: 700px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.mainImg h1 {
+    width: 60%;
+    text-align: center;
+}
