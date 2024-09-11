@@ -12,3 +12,37 @@
     width: 60%;
     text-align: center;
 }
+
+.myProfileImg {
+    background-image: url("images/blommor3.jpg");
+    border-top-right-radius: 100%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+    align-self: flex-start;
+}
+
+.myProfileImg,
+.myOrdersImg {
+    background-size: cover;
+    width: 300px;
+    height: 400px;
+    display: flex;
+    align-items: center;
+}
+
+.myOrdersImg {
+    background-image: url("images/blommor6.jpg");
+    border-top-right-radius: 50%;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 100%;
+    align-self: flex-end;
+
+}
+main {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    padding: 55px 80px;
+}
