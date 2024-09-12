@@ -1,94 +1,78 @@
 const user = "test";
 const password = "1234";
-//Skapa all innehåll
+//All contant
 const header = document.createElement("header");
 const main = document.createElement("main");
 const footer = document.createElement("footer");
-footer.innerText = "© 2024 Inloggningssida - All rights reserved";
-
 const loginHolder = document.createElement("div");
-
 const myProfileHolder = document.createElement("div");
 const myProfile = document.createElement("h1");
-myProfile.innerText = "My Profile";
-myProfileHolder.appendChild(myProfile);
-myProfileHolder.classList = "myProfileImg";
-
 const myOrdersHolder = document.createElement("div");
 const myOrders = document.createElement("h1");
-myOrders.innerText = "Order History";
-myOrdersHolder.appendChild(myOrders);
-myOrdersHolder.classList = "myOrdersImg";
-
 const imageHolder = document.createElement("div");
 const heading = document.createElement("h1");
-heading.innerText = "Custom Dried Flower Bouquets";
-
-imageHolder.appendChild(heading);
-imageHolder.classList = "mainImg";
-main.appendChild(imageHolder);
-
 const userNameInput = document.createElement("input");
-userNameInput.setAttribute("type", "text");
-userNameInput.setAttribute("placeholder", "användarnamn");
-
 const passwordInput = document.createElement("input");
-passwordInput.setAttribute("type", "password");
-passwordInput.setAttribute("placeholder", "lösenord");
-
-let errorMessage = document.createElement("p");
-errorMessage.classList = "errorMessage";
-
 const loginBtn = document.createElement("button");
-loginBtn.innerText = "Logga in";
-// loginBtn.disabled="true"
-
-loginHolder.appendChild(userNameInput);
-loginHolder.appendChild(passwordInput);
-loginHolder.appendChild(loginBtn);
-
+const errorMessage = document.createElement("p");
 const userName = document.createElement("p");
 const logoutBtn = document.createElement("button");
-logoutBtn.innerText = "Logga ut";
 const profileHolder = document.createElement("div");
-profileHolder.appendChild(userName);
-profileHolder.appendChild(logoutBtn);
 
-document.body.appendChild(header);
-document.body.appendChild(main);
-document.body.appendChild(footer);
+//Adding attributes and classes
+userNameInput.setAttribute("type", "text");
+userNameInput.setAttribute("placeholder", "användarnamn");
+passwordInput.setAttribute("type", "password");
+passwordInput.setAttribute("placeholder", "lösenord");
+myProfileHolder.classList.add("myProfileImg");
+myOrdersHolder.classList.add("myOrdersImg");
+imageHolder.classList.add("mainImg");
+errorMessage.classList.add("errorMessage");
 
-//vad visas när man inte är inloggad
+//Adding innerText
+footer.innerText = "© 2024 Inloggningssida - All rights reserved";
+myProfile.innerText = "My Profile";
+myOrders.innerText = "Order History";
+heading.innerText = "Custom Dried Flower Bouquets";
+loginBtn.innerText = "Logga in";
+logoutBtn.innerText = "Logga ut";
+
+//Append
+myProfileHolder.appendChild(myProfile);
+myOrdersHolder.appendChild(myOrders);
+imageHolder.appendChild(heading);
+main.appendChild(imageHolder);
+loginHolder.append(userNameInput, passwordInput, loginBtn);
+profileHolder.append(userName, logoutBtn);
+document.body.append(header, main, footer);
+
+//View when not logged in
 function notLoggedIn() {
+  emptyInputValues();
+  header.appendChild(loginHolder);
+  profileHolder.remove();
+  myOrdersHolder.remove();
+  myProfileHolder.remove();
+}
+function emptyInputValues() {
   userNameInput.value = "";
   passwordInput.value = "";
-  header.append(loginHolder);
 }
-notLoggedIn();
 
-//vad visas när man är inloggad
+//View when logged in
 function loggedIn() {
-  userName.innerText = "Välkommen" + " " + userNameInput.value;
-  header.removeChild(loginHolder);
+  showUserName();
+  loginHolder.remove();
   header.appendChild(profileHolder);
   main.appendChild(myOrdersHolder);
   main.appendChild(myProfileHolder);
 }
+function showUserName() {
+  let savedUser = localStorage.getItem("userName");
+  userName.innerText = "Välkommen" + " " + savedUser;
+}
 
-//vad visas när man skriver fel användarnamn eller lösenord
-function handleWrongOrNoInput(input, message, secondInput) {
-  input.classList = "wrongInput";
-  errorMessage.innerText = message;
-  loginHolder.appendChild(errorMessage);
-  if (secondInput) {
-    secondInput.classList = "wrongInput";
-  }
-}
-function removeValidationMessage(input) {
-  userNameInput.classList.remove("wrongInput");
-  passwordInput.classList.remove("wrongInput");
-  errorMessage.innerText = "";
-}
+//Handle wrong or no input validation
 function validateLogin() {
   if (userNameInput.value != user || passwordInput.value != password) {
     if (userNameInput.value.length < 1 && passwordInput.value.length < 1) {
@@ -113,17 +97,46 @@ function validateLogin() {
     }
   }
 }
-userNameInput.addEventListener("input", () => removeValidationMessage());
-passwordInput.addEventListener("input", () => removeValidationMessage());
+
+function handleWrongOrNoInput(input, message, secondInput) {
+  input.classList.add("wrongInput");
+  errorMessage.innerText = message;
+  loginHolder.appendChild(errorMessage);
+  secondInput && secondInput.classList.add("wrongInput");
+  //secondInput is checked to see if it is true (not null, undefined, or false).
+  //secondInput.classList.add("wrongInput") is executed only if secondInput is true
+}
+
+function removeValidationMessage(input) {
+  input.classList.remove("wrongInput");
+  errorMessage.innerText = "";
+}
+
+userNameInput.addEventListener("input", () => removeValidationMessage(userNameInput));
+passwordInput.addEventListener("input", () => removeValidationMessage(passwordInput));
+
+//Save user to Local Storage
+function saveUserToLS(name) {
+  localStorage.setItem("userName", name);
+}
 
 function login() {
   if (userNameInput.value == user && passwordInput.value == password) {
-    loggedIn();
+    saveUserToLS(userNameInput.value);
+    showRightView();
   } else validateLogin();
 }
 
 loginBtn.addEventListener("click", () => login());
+
 logoutBtn.addEventListener("click", function () {
-  header.removeChild(profileHolder);
-  notLoggedIn();
+  localStorage.removeItem("userName");
+  showRightView();
 });
+
+//stay logged in
+function showRightView() {
+  localStorage.getItem("userName") ? loggedIn() : notLoggedIn();
+  //ternary operator syntax: condition ? expressionIfTrue : expressionIfFalse; same as if else
+}
+showRightView();
