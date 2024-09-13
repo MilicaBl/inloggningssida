@@ -16,7 +16,7 @@ git clone https://github.com/MilicaBl/inloggningssida.git
 <p>Open the index.html file in your browser to run the project locally.</p>
 
 <h2>Try online</h2>
-Visit <a href=""></a>
+Visit <a href="https://milicabl.github.io/inloggningssida">https://milicabl.github.io/inloggningssida</a>
 <h3>Demo login</h3>
 <ul>
   <li>Username: test</li>
