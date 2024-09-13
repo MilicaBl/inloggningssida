@@ -4,6 +4,7 @@ const password = "1234";
 const header = document.createElement("header");
 const main = document.createElement("main");
 const footer = document.createElement("footer");
+const footerText = document.createElement("p");
 const loginHolder = document.createElement("div");
 const myProfileHolder = document.createElement("div");
 const myProfile = document.createElement("h1");
@@ -18,6 +19,7 @@ const errorMessage = document.createElement("p");
 const userName = document.createElement("p");
 const logoutBtn = document.createElement("button");
 const profileHolder = document.createElement("div");
+const logo = document.createElement("span");
 
 //Adding attributes and classes
 userNameInput.setAttribute("type", "text");
@@ -28,14 +30,18 @@ myProfileHolder.classList.add("myProfileImg");
 myOrdersHolder.classList.add("myOrdersImg");
 imageHolder.classList.add("mainImg");
 errorMessage.classList.add("errorMessage");
+logo.classList.add("logo");
+userName.classList.add("welcomeText");
+profileHolder.classList.add("profileHolder");
 
 //Adding innerText
-footer.innerText = "© 2024 Inloggningssida - All rights reserved";
+footerText.innerText = "© 2024 The Feather - All rights reserved";
 myProfile.innerText = "My Profile";
 myOrders.innerText = "Order History";
 heading.innerText = "Custom Dried Flower Bouquets";
 loginBtn.innerText = "Logga in";
 logoutBtn.innerText = "Logga ut";
+logo.innerText = "The Feather";
 
 //Append
 myProfileHolder.appendChild(myProfile);
@@ -44,6 +50,8 @@ imageHolder.appendChild(heading);
 main.appendChild(imageHolder);
 loginHolder.append(userNameInput, passwordInput, loginBtn);
 profileHolder.append(userName, logoutBtn);
+footer.append(footerText);
+header.appendChild(logo);
 document.body.append(header, main, footer);
 
 //View when not logged in
@@ -107,13 +115,14 @@ function handleWrongOrNoInput(input, message, secondInput) {
   //secondInput.classList.add("wrongInput") is executed only if secondInput is true
 }
 
-function removeValidationMessage(input) {
-  input.classList.remove("wrongInput");
+function removeValidationMessage() {
+  userNameInput.classList.remove("wrongInput");
+  passwordInput.classList.remove("wrongInput");
   errorMessage.innerText = "";
 }
 
-userNameInput.addEventListener("input", () => removeValidationMessage(userNameInput));
-passwordInput.addEventListener("input", () => removeValidationMessage(passwordInput));
+userNameInput.addEventListener("input", () => removeValidationMessage());
+passwordInput.addEventListener("input", () => removeValidationMessage());
 
 //Save user to Local Storage
 function saveUserToLS(name) {

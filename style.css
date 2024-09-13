@@ -1,13 +1,81 @@
-.mainImg{
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Garanterar att body alltid är minst 100% av viewport-höjden */
+}
+
+/* Header */
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 15px 60px;
+    align-items: flex-start;
+}
+
+header div {
+    margin-top: 5px;
+}
+
+.profileHolder {
+    display: flex;
+    flex-direction: row;
+}
+
+.welcomeText {
+    margin: 3px 5px 0;
+}
+
+input {
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 2px solid #978678;
+    padding: 2px;
+}
+
+button {
+    border-radius: 5px;
+    background-color: #978678;
+    color: #f6f4f0;
+    width: 120px;
+    padding: 4px 0px;
+    border: none;
+    cursor: pointer;
+}
+
+.logo {
+    font-size: 1.6rem;
+}
+
+.wrongInput {
+    border: 2px solid red;
+}
+
+.errorMessage {
+    margin: 5px 0px 0px 0px;
+    color: red;
+    font-weight: bold;
+}
+
+/* Main */
+.mainImg {
     background-image: url("images/blommor7.jpg");
     background-size: cover;
-    width: 500px;
-    height: 700px;
+    width: 400px;
+    height: 550px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
 .mainImg h1 {
     width: 60%;
     text-align: center;
@@ -19,6 +87,7 @@
     border-bottom-right-radius: 50%;
     border-bottom-left-radius: 50%;
     align-self: flex-start;
+    order: -1
 }
 
 .myProfileImg,
@@ -28,6 +97,7 @@
     height: 400px;
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .myOrdersImg {
@@ -36,16 +106,26 @@
     border-top-left-radius: 50%;
     border-bottom-left-radius: 100%;
     align-self: flex-end;
-
 }
+
 main {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     position: relative;
-    padding: 55px 80px;
+    padding: 45px 60px;
+    flex: 1; /* Detta gör att huvudinnehållet fyller ut så mycket som möjligt av sidan */
 }
-.wrongInput{
-    border: 1px solid red;
+
+/* Footer */
+footer {
+    background-color: #978678;
+    padding: 55px 80px 25px 80px;
+    color: #f6f4f0;
+    display: flex;
+    /* flex-wrap: wrap; */
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
